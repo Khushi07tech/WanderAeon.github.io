@@ -118,30 +118,26 @@
   }
 
   /* ---------- Album Grid ---------- */
-  .album-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    justify-items: center;
-  }
+  .album-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
 
-  .album-card {
-    background-color: rgba(0,0,0,0.6);
-    border: 2px solid #ff6600;
-    border-radius: 15px;
-    padding: 30px 20px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.2em;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
+.album-list li {
+  font-size: 1.5em;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border: 2px solid #ff6600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
 
-  .album-card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 30px #ff6600, 0 0 50px #ff3300;
-  }
+.album-list li:hover {
+  background-color: #ff6600;
+  color: #000;
+  transform: scale(1.05);
+}
 
 </style>
 </head>
@@ -195,25 +191,25 @@
 </section>
 
 <!-- ---------- Released Songs ---------- -->
-<section id="released" style="background-image: url('bg3.jpg');">
+<section id="released" style="background-color: #111;">
   <h1 class="glow-text">Released Songs</h1>
-  <div class="album-grid">
-    <div class="album-card">XX</div>
-    <div class="album-card">XX</div>
-    <div class="album-card">XX</div>
-    <div class="album-card">XX</div>
-  </div>
+  <ul class="album-list">
+    <li>XX</li>
+    <li>XX</li>
+    <li>XX</li>
+    <li>XX</li>
+  </ul>
 </section>
 
 <!-- ---------- Upcoming Songs ---------- -->
-<section id="upcoming" style="background-image: url('bg4.jpg');">
+<section id="upcoming" style="background-color: #111;">
   <h1 class="glow-text">Upcoming Songs</h1>
-  <div class="album-grid">
-    <div class="album-card">XX</div>
-    <div class="album-card">XX</div>
-    <div class="album-card">XX</div>
-    <div class="album-card">XX</div>
-  </div>
+  <ul class="album-list">
+    <li>XX</li>
+    <li>XX</li>
+    <li>XX</li>
+    <li>XX</li>
+  </ul>
 </section>
 
 <script>
