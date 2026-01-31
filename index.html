@@ -18,15 +18,15 @@
     position: relative;
   }
 
-  /* Particles background */
+  /* Particles canvas */
   #particles {
     position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:0;
-    pointer-events:none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
   }
 
   /* Sections */
@@ -34,8 +34,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     position: relative;
     z-index: 1;
     opacity: 0;
@@ -43,4 +43,191 @@
     transition: all 1s ease-out;
   }
 
-  section.activ
+  section.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Neon Glow Text */
+  .glow-text {
+    font-size: 3em;
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+    margin-bottom: 30px;
+  }
+
+  .typed-text {
+    display: inline-block;
+    border-right: 3px solid #ff00ff;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  /* Buttons */
+  .buttons {
+    margin: 20px;
+    display: flex;
+    gap: 15px;
+  }
+
+  .btn {
+    padding: 12px 20px;
+    border: 2px solid #ff00ff;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn:hover {
+    background-color: #ff00ff;
+    color: #000;
+    transform: scale(1.1);
+  }
+
+  /* Extra Image */
+  .extra-image {
+    width: 300px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- Home Section -->
+<section id="home" class="active">
+  <h1 class="glow-text"><span class="typed-text"></span></h1>
+  <div class="buttons">
+    <a href="#youtube" class="btn">YouTube</a>
+    <a href="#facebook" class="btn">Facebook</a>
+    <a href="#whatsapp" class="btn">WhatsApp</a>
+    <a href="#tiktok" class="btn">TikTok</a>
+  </div>
+</section>
+
+<!-- Other Sections -->
+<section id="youtube">
+  <h1 class="glow-text">YouTube Section</h1>
+  <img src="bg2.jpg" class="extra-image" alt="Extra Image">
+</section>
+
+<section id="facebook">
+  <h1 class="glow-text">Facebook Section</h1>
+  <img src="bg2.jpg" class="extra-image" alt="Extra Image">
+</section>
+
+<section id="whatsapp">
+  <h1 class="glow-text">WhatsApp Section</h1>
+  <img src="bg2.jpg" class="extra-image" alt="Extra Image">
+</section>
+
+<section id="tiktok">
+  <h1 class="glow-text">TikTok Section</h1>
+  <img src="bg2.jpg" class="extra-image" alt="Extra Image">
+</section>
+
+<script>
+  // Typing effect
+  const text = "Music for wanderers of time, thought, and identity.";
+  const typedText = document.querySelector('.typed-text');
+  let index = 0;
+
+  function type() {
+    if(index < text.length) {
+      typedText.innerHTML += text.charAt(index);
+      index++;
+      setTimeout(type, 80);
+    }
+  }
+
+  // Reveal sections on scroll
+  function revealSections() {
+    const sections = document.querySelectorAll('section');
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      if(top < window.innerHeight - 100){
+        sec.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealSections);
+  window.addEventListener('load', () => {
+    revealSections();
+    type();
+  });
+
+  // Smooth scroll for buttons
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(btn.getAttribute('href'));
+      target.scrollIntoView({behavior: 'smooth'});
+    });
+  });
+
+  // Particles effect
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const particlesArray = [];
+  const colors = ['#ff00ff','#ff66ff','#ff33cc','#ff00cc'];
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = (Math.random() - 0.5) * 1.5;
+      this.speedY = (Math.random() - 0.5) * 1.5;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if(this.x < 0 || this.x > width) this.speedX *= -1;
+      if(this.y < 0 || this.y > height) this.speedY *= -1;
+    }
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    for(let i = 0; i < 100; i++){
+      particlesArray.push(new Particle());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    particlesArray.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  initParticles();
+  animate();
+
+</script>
+
+</body>
+</html>
