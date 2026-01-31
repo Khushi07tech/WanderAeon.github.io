@@ -78,7 +78,7 @@
   }
 
   /* Buttons */
-  .buttons { margin: 20px; display: flex; gap: 15px; }
+  .buttons { margin: 20px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
   .btn {
     padding: 12px 20px;
     border: 2px solid #ff6600;
@@ -116,10 +116,12 @@
 <section id="home" class="active">
   <h1 class="glow-text"><span class="typed-text"></span></h1>
   <div class="buttons">
-    <a href="#youtube" class="btn">YouTube</a>
-    <a href="#facebook" class="btn">Facebook</a>
-    <a href="#whatsapp" class="btn">WhatsApp</a>
-    <a href="#tiktok" class="btn">TikTok</a>
+    <a href="https://www.youtube.com/@WanderAeon" target="_blank" class="btn">YouTube</a>
+    <a href="https://www.tiktok.com/@wanderaeon?_r=1&_t=ZS-92b0L7R5HBy" target="_blank" class="btn">TikTok</a>
+    <a href="https://soundcloud.com/wanderaeon" target="_blank" class="btn">SoundCloud</a>
+    <a href="https://whatsapp.com/channel/0029VbBr6TtEVccDIQ0q6I2U" target="_blank" class="btn">WhatsApp</a>
+    <a href="#youtube" class="btn">Scroll to YouTube</a>
+    <a href="#facebook" class="btn">Scroll to Facebook</a>
   </div>
 </section>
 
@@ -141,6 +143,11 @@
 
 <section id="tiktok">
   <h1 class="glow-text">TikTok Section</h1>
+  <img src="bg2.jpg" class="extra-image" alt="Extra Image">
+</section>
+
+<section id="soundcloud">
+  <h1 class="glow-text">SoundCloud Section</h1>
   <img src="bg2.jpg" class="extra-image" alt="Extra Image">
 </section>
 
@@ -173,8 +180,8 @@
     type();
   });
 
-  // Smooth scroll for buttons
-  const buttons = document.querySelectorAll('.btn');
+  // Smooth scroll for internal buttons
+  const buttons = document.querySelectorAll('.btn[href^="#"]');
   buttons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
